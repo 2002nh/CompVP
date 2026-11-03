@@ -35,6 +35,8 @@ import cv2
 import numpy as np
 from PIL import Image, ImageOps
 
+from rembg import remove
+
 
 SUPPORTED = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp"}
 
@@ -54,6 +56,7 @@ def make_mooney(image, blur_sigma=3.0, white_percent=50.0):
         raise ValueError("Blur sigma must be a finite number >= 0.")
     if not math.isfinite(white_percent) or not 0 <= white_percent <= 100:
         raise ValueError("White percentage must be between 0 and 100.")
+
 
     # STEP 1: Convert RGB to greyscale; float pixels avoid blur quantization.
     grey = np.asarray(image.convert("L"), dtype=np.float32)
